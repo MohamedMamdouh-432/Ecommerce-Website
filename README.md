@@ -1,0 +1,3 @@
+# E-commerce Website
+
+This is an e-commerce website built with Node.js for the server side and React.js for the client side. The application is designed to provide users with a seamless online shopping experience. The website allows users to browse products, add them to cart, and checkout using a secure payment gateway. The website also provides features such as user registration, login, order tracking, and customer support. The application is built using a microservices architecture, with each service responsible for a specific feature of the application. The services communicate with each other using RESTful APIs. The application is deployed on a cloud platform and is scalable to handle large volumes of traffic.

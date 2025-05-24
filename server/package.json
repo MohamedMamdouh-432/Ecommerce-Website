@@ -1,0 +1,27 @@
+{
+  "name": "ecommerce-api",
+  "version": "0.0.1",
+  "description": "Ecommerce API Run With Nodejs",
+  "keywords": [
+    "nodejs",
+    "react",
+    "ecommerce",
+    "express",
+    "mongodb"
+  ],
+  "homepage": "https://github.com/MohamedMamdouh-432/Ecommerce-Website#readme",
+  "bugs": {
+    "url": "https://github.com/MohamedMamdouh-432/Ecommerce-Website/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohamedMamdouh-432/Ecommerce-Website.git"
+  },
+  "license": "ISC",
+  "author": "Mohamed Mamdouh",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  }
+}
