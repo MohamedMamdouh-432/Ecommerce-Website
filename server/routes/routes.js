@@ -1,0 +1,1 @@
+exports.CategoryRoute = require('./category_route');
