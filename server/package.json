@@ -26,10 +26,12 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
-    "dotprocess.env": "^16.5.0",
+    "chalk": "^5.4.1",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mongoose": "^8.15.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
