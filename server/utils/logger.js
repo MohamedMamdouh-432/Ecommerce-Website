@@ -1,8 +1,8 @@
-const chalk = require('chalk');
+const colors = require('console-log-colors');
 
 module.exports = {
-    success: (message) => console.log(chalk.green(message)),
-    error: (message) => console.error(chalk.red(message)),
-    info: (message) => console.info(chalk.cyan(message)),
-    debug: (message) => console.debug(chalk.magenta(message)),
+    success: (message) => console.log(colors.green(message)),
+    error: (message) => console.error(colors.red(message)),
+    info: (message) => console.info(colors.cyan(message)),
+    debug: (message) => console.debug(colors.magenta(message)),
 };

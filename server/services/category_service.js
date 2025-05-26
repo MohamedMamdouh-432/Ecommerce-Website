@@ -1,5 +1,5 @@
 const Category = require('../models/category');
-const { apiOptions } = require('../utils/utils');
+const { ApiOptions } = require('../utils/utils');
 
 // @desc Create a new category
 // @route POST /api/categories
@@ -16,7 +16,7 @@ exports.createCategory = async (req, res) => {
 // @route GET /api/categories
 // @access Public
 exports.getCategories = async (req, res) => {
-    const query = new apiOptions(Category.find(), req.query).filter().sort().limitFields().paginate();
+    const query = new ApiOptions(Category.find(), req.query).filter().sort().limitFields().paginate();
     const categories = await query.operation;
     res.status(200).send({
         message: 'Categories retrieved successfully',

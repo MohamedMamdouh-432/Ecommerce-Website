@@ -1,20 +1,20 @@
-const AppError = require('./app_error')
+const ApiError = require('./api_error')
 
 function handleCastErrorDB(err) {
     const message = `Invalid ${err.path}: ${err.value}.`
-    return new AppError(message, 400)
+    return new ApiError(message, 400)
 }
 
 function handleDuplicateFieldsDB(err) {
     const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0]
     const message = `Duplicate field value: ${value}. Please use another value!`
-    return new AppError(message, 400)
+    return new ApiError(message, 400)
 }
 
 function handleValidationErrorDB(err) {
     const errors = Object.values(err.errors).map((el) => el.message)
     const message = `Invalid input data. ${errors.join('. ')}`
-    return new AppError(message, 400)
+    return new ApiError(message, 400)
 }
 
 function sendError(err, res) {
