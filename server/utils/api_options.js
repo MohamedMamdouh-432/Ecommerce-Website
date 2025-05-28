@@ -5,8 +5,8 @@ module.exports = class ApiOptions {
     }
 
     filter() {
-        const queryObj = { ...this.query }
-        const excludedFields = ['page', 'sort', 'limit', 'fields']
+        const queryObj = { ...this.query };
+        const excludedFields = ['page', 'sort', 'limit', 'fields'];
         excludedFields.forEach((el) => delete queryObj[el])
 
         // 1B) Advanced filtering
@@ -49,6 +49,11 @@ module.exports = class ApiOptions {
 
         this.operation = this.operation.skip(skip).limit(limit)
 
+        return this
+    }
+    
+    populate(field) {
+        this.operation = this.operation.populate({path: field, select: '__id name'})
         return this
     }
 }

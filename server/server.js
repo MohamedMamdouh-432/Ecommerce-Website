@@ -5,7 +5,7 @@ const app = require('./app');
 const Env = require('./config/env');
 
 mongoose.connect(Env.DB_URL).then((res) => {
-    logger.success(`🔥 Database connected successfully 🔥: ${res.connection.name}`);
+    logger.success(`Database 🔥 ${res.connection.name} 🔥 connected successfully`);
 });
 
 const server = app.listen(Env.PORT, () => {

@@ -1,5 +1,5 @@
 const Category = require('../models/category');
-const { ApiOptions } = require('../utils/utils');
+const { ApiOptions, ApiError } = require('../utils/utils');
 
 // @desc Create a new category
 // @route POST /api/categories
@@ -15,7 +15,7 @@ exports.createCategory = async (req, res) => {
 // @desc Get all categories
 // @route GET /api/categories
 // @access Public
-exports.getCategories = async (req, res) => {
+exports.getAllCategories = async (req, res) => {
     const query = new ApiOptions(Category.find(), req.query).filter().sort().limitFields().paginate();
     const categories = await query.operation;
     res.status(200).send({
@@ -31,10 +31,10 @@ exports.getCategories = async (req, res) => {
 // @desc Get a category by ID
 // @route GET /api/categories/:id
 // @access Public
-exports.getCategoryById = async (req, res) => {
+exports.getCategoryById = async (req, res, next) => {
     const category = await Category.findById(req.params.id);
     if (!category)
-        return res.status(404).send({ message: 'Category not found' });
+        return next(new ApiError('Category not found', 404));
     return res.status(200).send({
         message: 'Category retrieved successfully',
         data: category
@@ -44,13 +44,13 @@ exports.getCategoryById = async (req, res) => {
 // @desc Update a category by ID
 // @route PUT /api/categories/:id
 // @access Private
-exports.updateCategory = async (req, res) => {
+exports.updateCategory = async (req, res, next) => {
     const updatedCategory = await Category.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
     });
     if (!updatedCategory)
-        return res.status(404).send({ message: 'Category not found' });
+        return next(new ApiError('Category not found', 404));
     return res.status(200).send({
         message: 'Category updated successfully',
         data: updatedCategory
@@ -60,10 +60,10 @@ exports.updateCategory = async (req, res) => {
 // @desc Delete a category
 // @route DELETE /api/categories/:id
 // @access Private
-exports.deleteCategory = async (req, res) => {
+exports.deleteCategory = async (req, res, next) => {
     const category = await Category.findByIdAndDelete(req.params.id);
     if (!category)
-        return res.status(404).send({ message: 'Category not found' });
+        return next(new ApiError('Category not found', 404));
     return res.status(200).send({
         message: 'Category deleted successfully',
         data: category

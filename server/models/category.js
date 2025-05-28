@@ -21,7 +21,7 @@ categorySchema.pre('save', function(next) {
     next();
 });
 
-categorySchema.pre('findOneAndUpdate', function(next) {
+categorySchema.pre('/^find/', function(next) {
     if (this._update.name) {
         this._update.slug = slugify(this._update.name);
     }
