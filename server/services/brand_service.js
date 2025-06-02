@@ -1,4 +1,4 @@
-const Brand = require('../models/brand');
+const { Brand } = require('../models/models');
 const { ApiOptions, ApiError } = require('../utils/utils');
 
 // @desc Create a new brand

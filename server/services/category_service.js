@@ -1,4 +1,4 @@
-const Category = require('../models/category');
+const { Category } = require('../models/models');
 const { ApiOptions, ApiError } = require('../utils/utils');
 
 // @desc Create a new category

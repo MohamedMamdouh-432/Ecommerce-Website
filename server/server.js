@@ -9,7 +9,7 @@ mongoose.connect(Env.DB_URL).then((res) => {
 });
 
 const server = app.listen(Env.PORT, () => {
-    logger.normal(`Server running on http://localhost:${Env.PORT}${Env.API_BASE_URL}`);
+    logger.normal(`Server running on http://localhost:${Env.PORT}${Env.BASE_URL}`);
 });
 
 process.on('uncaughtException', (err) => {

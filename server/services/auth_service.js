@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const Env = require('../config/env');
 const { ApiError } = require('../utils/utils');
 
-const User = require('../models/user');
+const { User } = require('../models/models');
 
 // @desc    Create token
 // @access  Private

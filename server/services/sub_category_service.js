@@ -1,4 +1,4 @@
-const SubCategory = require('../models/sub_category');
+const {SubCategory} = require('../models/models');
 const { ApiOptions, ApiError } = require('../utils/utils');
 
 // @desc Create a new subCategory

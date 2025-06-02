@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const slugify = require('slugify');
 const Env = require('../config/env');
 
 const productSchema = new Schema(
@@ -32,13 +33,12 @@ const productSchema = new Schema(
       type: Number,
       required: [true, 'Product price is required'],
       trim: true,
-      max: [200000, 'Too long product price'],
+      maxlength: [20, 'Too long product price'],
     },
     priceAfterDiscount: {
       type: Number,
     },
     colors: [String],
-
     imageCover: {
       type: String,
       required: [true, 'Product Image cover is required'],
@@ -82,6 +82,11 @@ productSchema.virtual('reviews', {
   ref: 'Review',
   foreignField: 'product',
   localField: '_id',
+});
+
+productSchema.pre('save', function (next) {
+  this.slug = slugify(this.title);
+  next();
 });
 
 // Mongoose query middleware
