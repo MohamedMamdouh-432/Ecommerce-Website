@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
+const slugify = require('slugify');
 const Env = require('../config/env');
 
-const brandSchema = new mongoose.Schema(
+const brandSchema = new Schema(
   {
     name: {
       type: String,
@@ -28,5 +29,9 @@ const setImageUrl = (doc) => {
 
 brandSchema.post('init', (doc) => setImageUrl(doc));
 brandSchema.post('save', (doc) => setImageUrl(doc));
+brandSchema.pre('save', function (next) {
+  this.slug = slugify(this.name);
+  next();
+})
 
-module.exports = mongoose.model('Brand', brandSchema);
+module.exports = model('Brand', brandSchema);
