@@ -17,6 +17,7 @@ function handleValidationErrorDB(err) {
     return new ApiError(message, 400)
 }
 
+
 function sendError(err, res) {
     if (err.isOperational) {
         res.status(err.statusCode).send({
@@ -32,7 +33,7 @@ function sendError(err, res) {
 }
 
 module.exports = (err, req, res, next) => {
-    console.log('Error 💥', err.name)
+    console.log(`${err.name} 💥 ${err.message}`)
     err.statusCode = err.statusCode || 500
     err.status = err.status || 'error'
     if (err.code === 11000) err = handleDuplicateFieldsDB(err)

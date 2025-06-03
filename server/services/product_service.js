@@ -1,14 +1,14 @@
 const { Product } = require('../models/models');
-const { ApiOptions, ApiError } = require('../utils/utils');
+const { ApiOptions, ApiError, logger } = require('../utils/utils');
 
 // @desc Create new products
 // @route POST /api/products
 // @access Private
-exports.createProduct = async (req, res) => {
-    const newProduct = await Product.create(req.body);
+exports.createProducts = async (req, res) => {
+    const newProducts = await Product.create(req.body);
     res.status(201).send({
-        message: 'Product created successfully',
-        data: newProduct
+        message: 'Products created successfully',
+        data: newProducts
     });
 }
 
@@ -16,8 +16,14 @@ exports.createProduct = async (req, res) => {
 // @route GET /api/products
 // @access Public
 exports.getAllProducts = async (req, res) => {
-    const query = new ApiOptions(Product.find(), req.query).filter().sort().limitFields().paginate();
-    const products = await query.operation;
+    const query = new ApiOptions(Product.find(), req.query)
+        .filter()
+        .search()
+        .sort()
+        .limitFields()
+        .paginate();
+    
+    const products = await query.operation.lean();
     res.status(200).send({
         message: 'Products retrieved successfully',
         data: {
@@ -62,11 +68,7 @@ exports.updateProduct = async (req, res, next) => {
 // @access Private
 exports.deleteProducts = async (req, res, next) => {
     const ids = req.params.id.split(',');
-    const delProducts = [];
-    ids.forEach(async (id) => {
-        const product = await Product.findByIdAndDelete(id);
-        if (product) delProducts.push(product);
-    })
+    const delProducts = await Product.deleteMany({ _id: { $in: ids } });
     return res.status(200).send({
         message: 'Products deleted successfully',
         data: delProducts

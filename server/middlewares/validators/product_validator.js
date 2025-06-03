@@ -59,7 +59,7 @@ exports.createProductValidator = [
         .notEmpty()
         .withMessage('Product must be belong to a category')
         .isMongoId()
-        .withMessage('Invalid ID formate')
+        .withMessage('Invalid ID format')
         .custom((categoryId) =>
             Category.findById(categoryId).then((category) => {
                 if (!category) {
@@ -73,13 +73,12 @@ exports.createProductValidator = [
     check('subcategories')
         .optional()
         .isMongoId()
-        .withMessage('Invalid ID formate')
+        .withMessage('Invalid ID format')
         .custom((subcategoriesIds) =>
             SubCategory.find({ _id: { $exists: true, $in: subcategoriesIds } }).then(
                 (result) => {
-                    if (result.length < 1 || result.length !== subcategoriesIds.length) {
+                    if (result.length < 1 || result.length !== subcategoriesIds.length)
                         return Promise.reject(new Error(`Invalid subcategories Ids`));
-                    }
                 }
             )
         )
@@ -101,7 +100,7 @@ exports.createProductValidator = [
             )
         ),
 
-    check('brand').optional().isMongoId().withMessage('Invalid ID formate'),
+    check('brand').optional().isMongoId().withMessage('Invalid ID format'),
     check('ratingsAverage')
         .optional()
         .isNumeric()
@@ -119,12 +118,12 @@ exports.createProductValidator = [
 ];
 
 exports.getProductValidator = [
-    check('id').isMongoId().withMessage('Invalid ID formate'),
+    check('id').isMongoId().withMessage('Invalid ID format'),
     validateResult,
 ];
 
 exports.updateProductValidator = [
-    check('id').isMongoId().withMessage('Invalid ID formate'),
+    check('id').isMongoId().withMessage('Invalid ID format'),
     body('title')
         .optional()
         .custom((val, { req }) => {
@@ -135,6 +134,6 @@ exports.updateProductValidator = [
 ];
 
 exports.deleteProductValidator = [
-    check('id').isMongoId().withMessage('Invalid ID formate'),
+    check('id').isMongoId().withMessage('Invalid ID format'),
     validateResult,
 ];

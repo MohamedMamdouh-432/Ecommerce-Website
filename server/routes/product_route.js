@@ -8,7 +8,7 @@ router.route('/')
         // AuthService.protect,
         // AuthService.restrictTo('admin', 'manager'),
         ProductValidator.createProductValidator,
-        asyncHandler(ProductService.createProduct)
+        asyncHandler(ProductService.createProducts)
     )
     .get(asyncHandler(ProductService.getAllProducts));
 
