@@ -8,7 +8,7 @@ module.exports = class ApiOptions {
 
     filter() {
         const queryObj = { ...this.query };
-        const excludedFields = ['page', 'sort', 'limit', 'fields'];
+        const excludedFields = ['page', 'sort', 'limit', 'fields', 'keyword'];
         excludedFields.forEach((el) => delete queryObj[el])
 
         // 1B) Advanced filtering
@@ -55,14 +55,26 @@ module.exports = class ApiOptions {
         return this
     }
 
-    paginate() {
-        const page = this.query.page * 1 || 1
-        const limit = this.query.limit * 1 || 10
-        const skip = (page - 1) * limit
+    paginate(docsCount) {
+        const page = parseInt(this.query.page) || 1;
+        const limit = parseInt(this.query.limit) || 10;
+        const skip = (page - 1) * limit;
+        const endIndex = page * limit;
 
-        this.operation = this.operation.skip(skip).limit(limit)
+        // Pagination result
+        const pagination = {};
+        pagination.currentPage = page;
+        pagination.limit = limit;
+        pagination.numberOfPages = Math.ceil(docsCount / limit);
 
-        return this
+        // prev & next page
+        if (endIndex < docsCount) pagination.nextPage = page + 1;
+        if (skip > 0) pagination.prevPage = page - 1;
+        this.paginationResult = pagination;
+        
+        this.operation = this.operation.skip(skip).limit(limit);
+
+        return this;
     }
 
     populate(field) {
